@@ -99,11 +99,8 @@ public class BayesRed {
 			                   , boolean pwI, boolean phI, ArmaType wI
 			                   , ArmaType owI, EnemigosType neI   ) {
 		double resultado [] = {0, 0, 0, 0, 0, 0};
-		
 		double probabilidadParcial = st;
 		
-		
-		//BuscarArmas, BuscarEnergia, Explorar, Huir, DetectarPeligro
 		int indexSt;
 		switch (stI) {
 		case Atacar:
@@ -121,10 +118,12 @@ public class BayesRed {
 		case Huir:
 			indexSt = 4;
 			break;
-		default:
+		case DetectarPeligro:
 			indexSt = 5;
 			break;
-			
+		default:
+			indexSt = -1;
+			break;
 		}
 		
 		int indexH;
@@ -132,9 +131,11 @@ public class BayesRed {
 		case Alto:
 			indexH = 0;
 			break;
-
-		default:
+		case Bajo:
 			indexH = 1;
+			break;
+		default:
+			indexH = -1;
 			break;
 		}
 		
@@ -164,7 +165,6 @@ public class BayesRed {
 		case Armado:
 			indexWi = 0;
 			break;
-
 		default:
 			indexWi = 1;
 			break;
@@ -175,9 +175,11 @@ public class BayesRed {
 		case Armado:
 			indexOw = 0;
 			break;
-
-		default:
+		case Desarmado:
 			indexOw = 1;
+			break;
+		default:
+			indexOw = -1;
 			break;
 		}
 		
@@ -186,9 +188,11 @@ public class BayesRed {
 		case Muchos:
 			indexNe = 0;
 			break;
-
-		default:
+		case Pocos:
 			indexNe = 1;
+			break;
+		default:
+			indexNe = -1;
 			break;
 		}
 		
