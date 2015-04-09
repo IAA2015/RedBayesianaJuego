@@ -3,11 +3,7 @@
  */
 package com.ull.etsii.iaa;
 
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.Map;
 
 /**
  * @author
@@ -104,11 +100,7 @@ public class BayesRed {
 	public static double[] calcularProb (Acciones stI, VidaType hI, boolean hnI
 			                   , boolean pwI, boolean phI, ArmaType wI
 			                   , ArmaType owI, EnemigosType neI   ) {
-		double resultado [] = new double[6];// = {0, 0, 0, 0, 0, 0};
-		//double probabilidadParcial = st;
-		
-		
-		
+		double resultado [] = new double[6];
 		
 		int indexSt;
 		switch (stI) {
@@ -209,7 +201,6 @@ public class BayesRed {
 		double norm = 0;
 		
 		for (int i = 0; i < 6; ++i) {
-			//calcular la probabilidad para cada valor de st1(Acciones)
 			resParcial2 = st *  st1[indexSt][i] * h[i][indexH] * hn[i][indexHn] * pw[i][indexPw] * ph[i][indexPh] 
 					* w[i][indexWi] * ow[i][indexOw] * ne[i][indexNe];
 			
@@ -218,8 +209,6 @@ public class BayesRed {
 			norm += resParcial2;
 			
 		}
-		
-		//norm /= 6.0;
 		
 		for (int i = 0; i < 6; ++i) {
 			resultado[i] = resultado[i] / norm;
@@ -233,23 +222,19 @@ public class BayesRed {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		double [] resultado = calcularProb(Acciones.Atacar, VidaType.Bajo, true, false, false
 				                         , ArmaType.Armado, ArmaType.Desarmado, EnemigosType.Pocos);
 		
-		//Atacar, BuscarArmas, BuscarEnergia, Explorar, Huir, DetectarPeligro
-		DecimalFormat df = new DecimalFormat("0.000000000000000000");
-		//System.out.println(df.format(x)); 
-		
+		DecimalFormat df = new DecimalFormat("0.00000000");
 		
         System.out.println("El resultado de probabilidades es:");
-		System.out.println("Atacar: " + df.format(resultado[0] * 100));
-		System.out.println("BuscarArmas: " + df.format(resultado[1] * 100));
-		System.out.println("BuscarEnergia: " + df.format(resultado[2] * 100));
-		System.out.println("Explorar: " + df.format(resultado[3] * 100));
-		System.out.println("Huir: " + df.format(resultado[4] * 100));
-		System.out.println("DetectarPeligro: " + df.format(resultado[5] * 100));
+		System.out.println("Atacar:.......... " + df.format(resultado[0] * 100));
+		System.out.println("BuscarArmas:..... " + df.format(resultado[1] * 100));
+		System.out.println("BuscarEnergia:... " + df.format(resultado[2] * 100));
+		System.out.println("Explorar:........ " + df.format(resultado[3] * 100));
+		System.out.println("Huir:............ " + df.format(resultado[4] * 100));
+		System.out.println("DetectarPeligro:. " + df.format(resultado[5] * 100));
 		
 	}
 
