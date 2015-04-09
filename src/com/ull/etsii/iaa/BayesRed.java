@@ -3,6 +3,12 @@
  */
 package com.ull.etsii.iaa;
 
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.Map;
+
 /**
  * @author
  *
@@ -25,9 +31,9 @@ public class BayesRed {
 		Muchos, Pocos
 	}
 	
-	double st = 1/7;
+	static double st = 1/7;
 	
-	double st1[][]={
+	static double st1[][]={
         {0.89996,  1e-5,        1e-5,        1e-5,        0.1,         1e-5},
         {0.49998,  0.49998,     1.00001e-5,  1.00001e-5,  1.00001e-5,  1.00001e-5},
         {0.49998,  1.00001e-5,  0.49998,     1.00001e-5,  1.00001e-5,  1.00001e-5},
@@ -35,7 +41,7 @@ public class BayesRed {
         {0.49998,  1.00001e-5,  1.00001e-5,  1.00001e-5,  0.49998,     1.00001e-5},
         {0.49998,  1.00001e-5,  1.00001e-5,  1.00001e-5,  1.00001e-5,  0.49998}
 	};
-	double h[][]={
+	static double h[][]={
         {0.999,  0.001},
         {0.9,    0.1},
         {0.001,  0.999},
@@ -43,7 +49,7 @@ public class BayesRed {
         {0.2,    0.8},
         {0.9,    0.1}
     };
-	double hn[][]={
+	static double hn[][]={
 		{0.6,  0.4},
 	    {0.5,  0.5},
 	    {0.5,  0.5},
@@ -51,7 +57,7 @@ public class BayesRed {
 	    {0.5,  0.5},
 	    {0.9,  0.1}
 	};
-	double pw[][]={
+	static double pw[][]={
 		{0.5,  0.5},
 	    {0.9,  0.1},
 	    {0.5,  0.5},
@@ -59,7 +65,7 @@ public class BayesRed {
 	    {0.5,  0.5},
 	    {0.6,  0.4}
 	};
-	double ph[][]={
+	static double ph[][]={
 	    {0.5,  0.5},
 	    {0.5,  0.5},
 	    {0.9,  0.1},
@@ -67,7 +73,7 @@ public class BayesRed {
 	    {0.5,  0.5},
 	    {0.6,  0.4}
 	};
-	double w[][]={
+	static double w[][]={
 		{0.999,  0.001},
 	    {0.2,    0.8},
 	    {0.5,    0.5},
@@ -76,7 +82,7 @@ public class BayesRed {
 	    {0.5,    0.5}
 	};
 	
-	double ow[][]={
+	static double ow[][]={
         {0.3,  0.7},
 	    {0.6,  0.4},
 	    {0.5,  0.5},
@@ -85,7 +91,7 @@ public class BayesRed {
 	    {0.5,  0.5}
 	};
 	
-	double ne[][]={
+	static double ne[][]={
 		{0.5,  0.5},
 	    {0.6,  0.4},
 	    {0.6,  0.4},
@@ -95,11 +101,11 @@ public class BayesRed {
 	};
 	
 
-	public double[] calcularProb (Acciones stI, VidaType hI, boolean hnI
+	public static double[] calcularProb (Acciones stI, VidaType hI, boolean hnI
 			                   , boolean pwI, boolean phI, ArmaType wI
 			                   , ArmaType owI, EnemigosType neI   ) {
-		double resultado [] = {0, 0, 0, 0, 0, 0};
-		double probabilidadParcial = st;
+		double resultado [] = new double[6];// = {0, 0, 0, 0, 0, 0};
+		//double probabilidadParcial = st;
 		
 		int indexSt;
 		switch (stI) {
@@ -214,7 +220,22 @@ public class BayesRed {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		
+		double [] resultado = calcularProb(Acciones.Atacar, VidaType.Bajo, true, false, false, ArmaType.Armado, ArmaType.Desarmado, EnemigosType.Pocos);
+		
+		//Atacar, BuscarArmas, BuscarEnergia, Explorar, Huir, DetectarPeligro
+		DecimalFormat df = new DecimalFormat("0.000000000000000000");
+		//System.out.println(df.format(x)); 
+		
+		
+        System.out.println("El resultado de probabilidades es:");
+		System.out.println("Atacar: " + df.format(resultado[0]));
+		System.out.println("BuscarArmas: " + df.format(resultado[1]));
+		System.out.println("BuscarEnergia: " + df.format(resultado[2]));
+		System.out.println("Explorar: " + df.format(resultado[3]));
+		System.out.println("Huir: " + df.format(resultado[4]));
+		System.out.println("DetectarPeligro: " + df.format(resultado[5]));
+		
 	}
 
 }
