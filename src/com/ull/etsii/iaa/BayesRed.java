@@ -95,13 +95,87 @@ public class BayesRed {
 	};
 	
 
-	public double calcularProb (Acciones stI, VidaType hI, boolean hnI
+	public double[] calcularProb (Acciones stI, VidaType hI, boolean hnI
 			                   , boolean pwI, boolean phI, ArmaType wI
 			                   , ArmaType owI, EnemigosType neI   ) {
+		double resultado [] = {0, 0, 0, 0, 0, 0};
+		
+		double probabilidadParcial; // P(St)
+		
+		switch (stI) {
+		case Atacar:
+			
+			break;
+
+		default:
+			break;
+		}
+		
+		switch (hI) {
+		case Alto:
+			
+			break;
+
+		default:
+			break;
+		}
+		
+		if (hnI) {
+			
+		}else {
+			
+		}
+		
+        if (pwI) {
+			
+		}else {
+			
+		}
+		
+        if (phI) {
+			
+		}else {
+			
+		}
+		
+		switch (wI) {
+		case Armado:
+			
+			break;
+
+		default:
+			break;
+		}
+		
+		switch (owI) {
+		case Armado:
+			
+			break;
+
+		default:
+			break;
+		}
+		
+		switch (neI) {
+		case Muchos:
+			
+			break;
+
+		default:
+			break;
+		}
+		
+		for (int i = 0; i < 6; ++i) {
+			//calcular la probabilidad para cada valor de st1(Acciones)
+			
+			
+			
+		}
 		
 		
 		
-		return 0.0;
+		
+		return resultado;
 	}
 	
 	
