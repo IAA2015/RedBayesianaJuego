@@ -31,15 +31,15 @@ public class BayesRed {
 		Muchos, Pocos
 	}
 	
-	static double st = 1/7;
+	static double st = 1 / 6.0;
 	
 	static double st1[][]={
         {0.89996,  1e-5,        1e-5,        1e-5,        0.1,         1e-5},
-        {0.49998,  0.49998,     1.00001e-5,  1.00001e-5,  1.00001e-5,  1.00001e-5},
-        {0.49998,  1.00001e-5,  0.49998,     1.00001e-5,  1.00001e-5,  1.00001e-5},
-        {0.49998,  1.00001e-5,  1.00001e-5,  0.49998,     1.00001e-5,  1.00001e-5},
-        {0.49998,  1.00001e-5,  1.00001e-5,  1.00001e-5,  0.49998,     1.00001e-5},
-        {0.49998,  1.00001e-5,  1.00001e-5,  1.00001e-5,  1.00001e-5,  0.49998}
+        {0.49998,  0.49998,     1e-5,        1e-5,        1e-5,        1e-5},
+        {0.49998,  1e-5,        0.49998,     1e-5,        1e-5,        1e-5},
+        {0.49998,  1e-5,        1e-5,        0.49998,     1e-5,        1e-5},
+        {0.49998,  1e-5,        1e-5,        1e-5,        0.49998,     1e-5},
+        {0.49998,  1e-5,        1e-5,        1e-5,        1e-5,        0.49998}
 	};
 	static double h[][]={
         {0.999,  0.001},
@@ -106,6 +106,9 @@ public class BayesRed {
 			                   , ArmaType owI, EnemigosType neI   ) {
 		double resultado [] = new double[6];// = {0, 0, 0, 0, 0, 0};
 		//double probabilidadParcial = st;
+		
+		
+		
 		
 		int indexSt;
 		switch (stI) {
@@ -203,12 +206,23 @@ public class BayesRed {
 		}
 		
 		double resParcial2;
+		double norm = 0;
+		
 		for (int i = 0; i < 6; ++i) {
 			//calcular la probabilidad para cada valor de st1(Acciones)
 			resParcial2 = st *  st1[indexSt][i] * h[i][indexH] * hn[i][indexHn] * pw[i][indexPw] * ph[i][indexPh] 
 					* w[i][indexWi] * ow[i][indexOw] * ne[i][indexNe];
 			
 			resultado[i] = resParcial2;
+			
+			norm += resParcial2;
+			
+		}
+		
+		//norm /= 6.0;
+		
+		for (int i = 0; i < 6; ++i) {
+			resultado[i] = resultado[i] / norm;
 		}
 		
 		return resultado;
@@ -221,7 +235,8 @@ public class BayesRed {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		double [] resultado = calcularProb(Acciones.Atacar, VidaType.Bajo, true, false, false, ArmaType.Armado, ArmaType.Desarmado, EnemigosType.Pocos);
+		double [] resultado = calcularProb(Acciones.Atacar, VidaType.Bajo, true, false, false
+				                         , ArmaType.Armado, ArmaType.Desarmado, EnemigosType.Pocos);
 		
 		//Atacar, BuscarArmas, BuscarEnergia, Explorar, Huir, DetectarPeligro
 		DecimalFormat df = new DecimalFormat("0.000000000000000000");
@@ -229,12 +244,12 @@ public class BayesRed {
 		
 		
         System.out.println("El resultado de probabilidades es:");
-		System.out.println("Atacar: " + df.format(resultado[0]));
-		System.out.println("BuscarArmas: " + df.format(resultado[1]));
-		System.out.println("BuscarEnergia: " + df.format(resultado[2]));
-		System.out.println("Explorar: " + df.format(resultado[3]));
-		System.out.println("Huir: " + df.format(resultado[4]));
-		System.out.println("DetectarPeligro: " + df.format(resultado[5]));
+		System.out.println("Atacar: " + df.format(resultado[0] * 100));
+		System.out.println("BuscarArmas: " + df.format(resultado[1] * 100));
+		System.out.println("BuscarEnergia: " + df.format(resultado[2] * 100));
+		System.out.println("Explorar: " + df.format(resultado[3] * 100));
+		System.out.println("Huir: " + df.format(resultado[4] * 100));
+		System.out.println("DetectarPeligro: " + df.format(resultado[5] * 100));
 		
 	}
 
