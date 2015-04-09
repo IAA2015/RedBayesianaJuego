@@ -199,7 +199,7 @@ public class BayesRed {
 		double resParcial2;
 		for (int i = 0; i < 6; ++i) {
 			//calcular la probabilidad para cada valor de st1(Acciones)
-			resParcial2 = st *  st1[i][indexSt] * h[i][indexH] * hn[i][indexHn] * pw[i][indexPw] * ph[i][indexPh] 
+			resParcial2 = st *  st1[indexSt][i] * h[i][indexH] * hn[i][indexHn] * pw[i][indexPw] * ph[i][indexPh] 
 					* w[i][indexWi] * ow[i][indexOw] * ne[i][indexNe];
 			
 			resultado[i] = resParcial2;
