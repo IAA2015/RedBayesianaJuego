@@ -112,7 +112,8 @@ public class BayesRed {
 			, boolean pwI, boolean phI, ArmaType wI
 			, ArmaType owI, EnemigosType neI   ) {
 		double resultado [] = new double[6];
-
+        
+		// Codificar los tipos (enums) de entrada a posiciones en las tablas.
 		int indexSt;
 		switch (stI) {
 		case Atacar:
@@ -211,6 +212,8 @@ public class BayesRed {
 		double resParcial2;
 		double norm = 0;
 
+		
+		// Calcular la probabilidad para cada uno de los valores de la siguiente accion
 		for (int i = 0; i < 6; ++i) {
 			resParcial2 = st *  st1[indexSt][i] * h[i][indexH] * hn[i][indexHn] * pw[i][indexPw] * ph[i][indexPh] 
 					* w[i][indexWi] * ow[i][indexOw] * ne[i][indexNe];
@@ -221,6 +224,7 @@ public class BayesRed {
 
 		}
 
+		// Normalizando los resultados
 		for (int i = 0; i < 6; ++i) {
 			resultado[i] = resultado[i] / norm;
 		}
@@ -233,6 +237,8 @@ public class BayesRed {
 	 * @param args
 	 */
 	 public static void main(String[] args) {
+		 
+		// Creando los componentes de la interfaz grafica.
 		JFrame ventanaP = new JFrame("Red Baysiana para el comportamiento de bots.");
 		final JComboBox<Acciones> accionesP = new JComboBox<Acciones>();
 		final JComboBox<VidaType> vidaAct = new JComboBox<VidaType>();
@@ -262,6 +268,7 @@ public class BayesRed {
 		JPanel armaEnem_Pan = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel numEnem_Pan = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
+		// Enlazando los paneles con sus correspondientes label y combobox
 		accionesP_Pan.add(accionesP_Tit);
 		accionesP_Pan.add(accionesP);
 		vidaAct_Pan.add(vidaAct_Tit);
@@ -279,9 +286,7 @@ public class BayesRed {
 		numEnem_Pan.add(numEnem_Tit);
 		numEnem_Pan.add(numEnem);
 
-		
-		
-		
+		// Añadiendo los valores a los combobox
 		accionesP.addItem(Acciones.Atacar);
 		accionesP.addItem(Acciones.BuscarArmas);
 		accionesP.addItem(Acciones.BuscarEnergia);
@@ -303,6 +308,7 @@ public class BayesRed {
 		numEnem.addItem(EnemigosType.Muchos);
 		numEnem.addItem(EnemigosType.Pocos);
 
+		// Creando las escuchas para los eventos de los combobox
 		accionesP.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -318,11 +324,8 @@ public class BayesRed {
 						, (ArmaType) armaEnem.getSelectedItem()
 						, (EnemigosType) numEnem.getSelectedItem());
 
-
 				DecimalFormat df = new DecimalFormat("0.00000000");
-
-	
-				
+			
 				System.out.println("El resultado de probabilidades es:");
 				System.out.println("Atacar:.......... " + df.format(resultado[0] * 100));
 				System.out.println("BuscarArmas:..... " + df.format(resultado[1] * 100));
@@ -347,7 +350,6 @@ public class BayesRed {
 						, (ArmaType) arma.getSelectedItem()
 						, (ArmaType) armaEnem.getSelectedItem()
 						, (EnemigosType) numEnem.getSelectedItem());
-
 
 				DecimalFormat df = new DecimalFormat("0.00000000");
 
@@ -376,7 +378,6 @@ public class BayesRed {
 						, (ArmaType) armaEnem.getSelectedItem()
 						, (EnemigosType) numEnem.getSelectedItem());
 
-
 				DecimalFormat df = new DecimalFormat("0.00000000");
 
 				System.out.println("El resultado de probabilidades es:");
@@ -403,7 +404,6 @@ public class BayesRed {
 						, (ArmaType) arma.getSelectedItem()
 						, (ArmaType) armaEnem.getSelectedItem()
 						, (EnemigosType) numEnem.getSelectedItem());
-
 
 				DecimalFormat df = new DecimalFormat("0.00000000");
 
@@ -432,7 +432,6 @@ public class BayesRed {
 						, (ArmaType) armaEnem.getSelectedItem()
 						, (EnemigosType) numEnem.getSelectedItem());
 
-
 				DecimalFormat df = new DecimalFormat("0.00000000");
 
 				System.out.println("El resultado de probabilidades es:");
@@ -459,7 +458,6 @@ public class BayesRed {
 						, (ArmaType) arma.getSelectedItem()
 						, (ArmaType) armaEnem.getSelectedItem()
 						, (EnemigosType) numEnem.getSelectedItem());
-
 
 				DecimalFormat df = new DecimalFormat("0.00000000");
 
@@ -488,7 +486,6 @@ public class BayesRed {
 						, (ArmaType) armaEnem.getSelectedItem()
 						, (EnemigosType) numEnem.getSelectedItem());
 
-
 				DecimalFormat df = new DecimalFormat("0.00000000");
 
 				System.out.println("El resultado de probabilidades es:");
@@ -516,7 +513,6 @@ public class BayesRed {
 						                           , (ArmaType) armaEnem.getSelectedItem()
 						                           , (EnemigosType) numEnem.getSelectedItem());
 
-
 				DecimalFormat df = new DecimalFormat("0.00000000");
 
 				System.out.println("El resultado de probabilidades es:");
@@ -526,12 +522,10 @@ public class BayesRed {
 				System.out.println("Explorar:........ " + df.format(resultado[3] * 100));
 				System.out.println("Huir:............ " + df.format(resultado[4] * 100));
 				System.out.println("DetectarPeligro:. " + df.format(resultado[5] * 100));
-				
-				
-
 			}
 		});
 
+		// Añadir todos los paneles a la ventana principal y configurarla
 		ventanaP.getContentPane().setLayout(new BoxLayout(ventanaP.getContentPane(), BoxLayout.Y_AXIS));
 		ventanaP.getContentPane().add(accionesP_Pan);
 		ventanaP.getContentPane().add(vidaAct_Pan);
@@ -546,10 +540,9 @@ public class BayesRed {
 		ventanaP.setVisible(true);
 		ventanaP.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
+		// Calcular un ejemplo por defecto del problema.
 		double [] resultado = calcularProb(Acciones.Atacar, VidaType.Bajo, true, false, false
 				, ArmaType.Armado, ArmaType.Desarmado, EnemigosType.Pocos);
-
 
 		DecimalFormat df = new DecimalFormat("0.00000000");
 		
@@ -562,7 +555,6 @@ public class BayesRed {
 		System.out.println("   Explorar:........ " + df.format(resultado[3] * 100));
 		System.out.println("   Huir:............ " + df.format(resultado[4] * 100));
 		System.out.println("   DetectarPeligro:. " + df.format(resultado[5] * 100));
-
 	 }
 
 }
